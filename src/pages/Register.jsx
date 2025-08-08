@@ -17,11 +17,13 @@ const Register = () => {
         passwordConfirmError: 'Confirm Password',
         passwordConfirmErrorCol: 'text-white',
     }) 
-    console.log(formData.username)
     // --------------Data Handler------------
     const HandleFormData = (e) => {
         e.preventDefault()
-        if(!formData.username || !formData.email || !formData.password || formData.passwordConfirm) setFormData({...formData, usernameError: 'Please enter your username' , usernameErrorCol: 'text-red-500' , emailError: 'Please enter your email', emailErrorCol: 'text-red-500' , passwordError: 'Please enter your password', passwordErrorCol: 'text-red-500' , passwordConfirmError: 'Please confirm your password', passwordConfirmErrorCol: 'text-red-500'})
+        if(!formData.username || !formData.email || !formData.password || !formData.passwordConfirm) setFormData({...formData, usernameError: 'Please enter your username' , usernameErrorCol: 'text-red-500' , emailError: 'Please enter your email', emailErrorCol: 'text-red-500' , passwordError: 'Please enter your password', passwordErrorCol: 'text-red-500' , passwordConfirmError: 'Please confirm your password', passwordConfirmErrorCol: 'text-red-500'})
+        else{
+            console.log('Form submitted successfully!')
+        }
     }
   return (
     <>

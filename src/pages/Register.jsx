@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { FaEnvelope, FaLock, FaUser } from 'react-icons/fa'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { Link } from 'react-router'
 
 const Register = () => {
@@ -16,11 +17,18 @@ const Register = () => {
         passwordConfirm: '',
         passwordConfirmError: 'Confirm Password',
         passwordConfirmErrorCol: 'text-white',
-    }) 
+    })
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const PasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    const EmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{0,}$/
     // --------------Data Handler------------
     const HandleFormData = (e) => {
         e.preventDefault()
-        if(!formData.username || !formData.email || !formData.password || !formData.passwordConfirm) setFormData({...formData, usernameError: 'Please enter your username' , usernameErrorCol: 'text-red-500' , emailError: 'Please enter your email', emailErrorCol: 'text-red-500' , passwordError: 'Please enter your password', passwordErrorCol: 'text-red-500' , passwordConfirmError: 'Please confirm your password', passwordConfirmErrorCol: 'text-red-500'})
+        if(!formData.username || !formData.email || !formData.password || !formData.passwordConfirm) return setFormData({...formData, usernameError: 'Please enter your username' , usernameErrorCol: 'text-red-500' , emailError: 'Please enter your email', emailErrorCol: 'text-red-500' , passwordError: 'Please enter your password', passwordErrorCol: 'text-red-500' , passwordConfirmError: 'Please confirm your password', passwordConfirmErrorCol: 'text-red-500'})
+        if(!EmailRegex.test(formData.email)) return setFormData({...formData , emailError: 'Please enter a valid email' , emailErrorCol: 'text-red-500'})
+        if(!PasswordRegex.test(formData.password)) return setFormData({...formData , passwordError: 'Choose a strong password' , passwordErrorCol: 'text-red-500'})
+        
         else{
             console.log('Form submitted successfully!')
         }
@@ -70,11 +78,20 @@ const Register = () => {
                 <div className="relative">
                 <FaLock className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-500" />
                 <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     onChange={(e)=>setFormData((prev)=>({...prev , password: e.target.value , passwordErrorCol: 'text-white',}))}
                     placeholder="Enter password"
-                    className="w-full pl-10 pr-4 py-3 rounded-lg bg-[#121212] text-white placeholder-gray-500 border border-gray-700 focus:outline-none focus:border-purple-400"
+                    className="w-full pl-10 pr-12 py-3 rounded-lg bg-[#121212] text-white placeholder-gray-500 border border-gray-700 focus:outline-none focus:border-purple-400"
                 />
+                <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 focus:outline-none"
+                    tabIndex={-1}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
                 </div>
             </div>
 
@@ -83,11 +100,20 @@ const Register = () => {
                 <div className="relative">
                 <FaLock className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-500" />
                 <input
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     onChange={(e)=>setFormData((prev)=>({...prev , passwordConfirm: e.target.value , passwordConfirmErrorCol: 'text-white',}))}
                     placeholder="Confirm password"
-                    className="w-full pl-10 pr-4 py-3 rounded-lg bg-[#121212] text-white placeholder-gray-500 border border-gray-700 focus:outline-none focus:border-purple-400"
+                    className="w-full pl-10 pr-12 py-3 rounded-lg bg-[#121212] text-white placeholder-gray-500 border border-gray-700 focus:outline-none focus:border-purple-400"
                 />
+                <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword((prev) => !prev)}
+                    className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 focus:outline-none"
+                    tabIndex={-1}
+                    aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+                >
+                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
                 </div>
             </div>
 

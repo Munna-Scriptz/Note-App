@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { FaEnvelope, FaLock, FaUser } from 'react-icons/fa'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { Link } from 'react-router'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
+import { Bounce, toast } from 'react-toastify';
 
 const Register = () => {
     const [formData , setFormData] = useState({
@@ -36,15 +37,50 @@ const Register = () => {
         // ------------Firebase Auth 
         createUserWithEmailAndPassword(auth, formData.email, formData.password)
         .then((userCredential) => {
-            // Signed up 
             const user = userCredential.user;
-            // ...
+            console.log(user)
+            toast.success('Register success', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+            });
+            // -----------Username & profile 
+            updateProfile(auth.currentUser, {
+                displayName: formData.username, photoURL: "https://example.com/jane-q-user/profile.jpg"
+            }).then(() => {
+                // ---------OTP verification 
+                sendEmailVerification(auth.currentUser)
+                .then(() => {
+                    console.log('mail otp send')
+                });
+            }).catch((error) => {
+                console.log(error)
+            });
         })
         .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.log(error)
+            if(errorCode == 'auth/email-already-in-use'){
+                toast.error('Email already in use', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+                });
+            }
         });
+        
     }
   return (
     <>

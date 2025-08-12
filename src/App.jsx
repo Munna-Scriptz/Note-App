@@ -5,6 +5,7 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import LayoutOne from './layout/LayoutOne'
 import Home from './pages/Home'
 import app from './firebase.config'
+import { ToastContainer } from 'react-toastify'
 const App = () => {
 
   const MyRoute = createBrowserRouter(createRoutesFromElements(
@@ -18,6 +19,7 @@ const App = () => {
 
   return (
     <>
+      <ToastContainer/>
       <RouterProvider router={MyRoute}></RouterProvider>
     </>
   )

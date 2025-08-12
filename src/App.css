@@ -2,3 +2,7 @@
 body{
   font-family: "Poppins", sans-serif;
 }
+
+#LoaderBG{
+  backdrop-filter: blur(10px);
+}

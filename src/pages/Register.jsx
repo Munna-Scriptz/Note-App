@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { Link } from 'react-router'
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { Bounce, toast } from 'react-toastify';
+import { HashLoader } from 'react-spinners';
 
 const Register = () => {
     const [formData , setFormData] = useState({
@@ -20,9 +21,13 @@ const Register = () => {
         passwordConfirmError: 'Confirm Password',
         passwordConfirmErrorCol: 'text-white',
     })
-    const auth = getAuth();
+    const auth = getAuth(); 
+    // --------Loader State 
+    const [loader , setLoader] = useState(false)
+    // --------ShowPass State 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    // --------Regex 
     const PasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
     const EmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{0,}$/
     // --------------Data Handler------------
@@ -32,23 +37,24 @@ const Register = () => {
         if(!EmailRegex.test(formData.email)) return setFormData({...formData , emailError: 'Please enter a valid email' , emailErrorCol: 'text-red-500'})
         if(!PasswordRegex.test(formData.password)) return setFormData({...formData , passwordError: 'Choose a strong password' , passwordErrorCol: 'text-red-500'})
         if(formData.password != formData.passwordConfirm) return setFormData({...formData , passwordConfirmError: 'Password does not match' , passwordConfirmErrorCol: 'text-red-500'})
-        console.log('Form submitted successfully!')
+        setLoader(!loader)
 
         // ------------Firebase Auth 
         createUserWithEmailAndPassword(auth, formData.email, formData.password)
         .then((userCredential) => {
+            setLoader(false)
             const user = userCredential.user;
             console.log(user)
             toast.success('Register success', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            transition: Bounce,
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
             });
             // -----------Username & profile 
             updateProfile(auth.currentUser, {
@@ -57,7 +63,17 @@ const Register = () => {
                 // ---------OTP verification 
                 sendEmailVerification(auth.currentUser)
                 .then(() => {
-                    console.log('mail otp send')
+                    toast.success('Verification OTP sent', {
+                        position: "top-right",
+                        autoClose: 6000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                        transition: Bounce,
+                    });
                 });
             }).catch((error) => {
                 console.log(error)
@@ -79,6 +95,7 @@ const Register = () => {
                 transition: Bounce,
                 });
             }
+            setLoader(false)
         });
         
     }
@@ -86,15 +103,18 @@ const Register = () => {
     <>
         <div className="min-h-screen flex items-center justify-center bg-[#0d0d0d] relative">
         {/* Blurry back effect */}
+        {/* ------------loader----------- */}
+        <div id='LoaderBG' className={`${loader? 'visible' : 'hidden'} w-full h-screen bg-[#00000080] absolute top-0 left-0 z-999 flex items-center justify-center`}>
+            <HashLoader size={70} color='#F564A9'/>
+        </div>
         <div className="absolute w-[400px] h-[400px] bg-purple-500/20 rounded-full blur-3xl top-10 left-10 animate-pulse"></div>
         <div className="absolute w-[300px] h-[300px] bg-pink-500/20 rounded-full blur-3xl bottom-10 right-10 animate-pulse"></div>
 
-        {/* Form Box */}
+        {/*-------------- Form Box------------------- */}
         <div className="w-full max-w-lg p-8 rounded-xl bg-[#1a1a1a]/90 border border-gray-800 shadow-xl backdrop-blur-md relative z-10">
             <h2 className="text-3xl font-bold text-white text-center mb-6">
             Create Account
             </h2>
-
             <form onSubmit={HandleFormData} className="space-y-5">
             {/* -----------Username------------- */}
             <div>

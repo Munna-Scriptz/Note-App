@@ -28,7 +28,7 @@ const Register = () => {
         if(!formData.username || !formData.email || !formData.password || !formData.passwordConfirm) return setFormData({...formData, usernameError: 'Please enter your username' , usernameErrorCol: 'text-red-500' , emailError: 'Please enter your email', emailErrorCol: 'text-red-500' , passwordError: 'Please enter your password', passwordErrorCol: 'text-red-500' , passwordConfirmError: 'Please confirm your password', passwordConfirmErrorCol: 'text-red-500'})
         if(!EmailRegex.test(formData.email)) return setFormData({...formData , emailError: 'Please enter a valid email' , emailErrorCol: 'text-red-500'})
         if(!PasswordRegex.test(formData.password)) return setFormData({...formData , passwordError: 'Choose a strong password' , passwordErrorCol: 'text-red-500'})
-        
+        if(formData.password != formData.passwordConfirm) return setFormData({...formData , passwordConfirmError: 'Password does not match' , passwordConfirmErrorCol: 'text-red-500'})
         else{
             console.log('Form submitted successfully!')
         }
@@ -47,6 +47,7 @@ const Register = () => {
             </h2>
 
             <form onSubmit={HandleFormData} className="space-y-5">
+            {/* -----------Username------------- */}
             <div>
                 <label className={`block text-gray-300 text-sm mb-1 ${formData.usernameErrorCol}`}>{formData.usernameError}</label>
                 <div className="relative">
@@ -59,7 +60,7 @@ const Register = () => {
                 />
                 </div>
             </div>
-
+            {/* -----------Email------------- */}
             <div>
                 <label className={`block text-gray-300 text-sm mb-1 ${formData.emailErrorCol}`}>{formData.emailError}</label>
                 <div className="relative">
@@ -72,6 +73,7 @@ const Register = () => {
                 />
                 </div>
             </div>
+            {/* -----------Password------------- */}
 
             <div>
                 <label className={`block text-gray-300 text-sm mb-1 ${formData.passwordErrorCol}`}>{formData.passwordError}</label>
@@ -86,7 +88,7 @@ const Register = () => {
                 <button
                     type="button"
                     onClick={() => setShowPassword((prev) => !prev)}
-                    className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 focus:outline-none"
+                    className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 focus:outline-none cursor-pointer"
                     tabIndex={-1}
                     aria-label={showPassword ? "Hide password" : "Show password"}
                 >
@@ -94,7 +96,7 @@ const Register = () => {
                 </button>
                 </div>
             </div>
-
+            {/* -----------Confirm Password------------- */}
             <div>
                 <label className={`block text-gray-300 text-sm mb-1 ${formData.passwordConfirmErrorCol}`}>{formData.passwordConfirmError}</label>
                 <div className="relative">
@@ -108,7 +110,7 @@ const Register = () => {
                 <button
                     type="button"
                     onClick={() => setShowConfirmPassword((prev) => !prev)}
-                    className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 focus:outline-none"
+                    className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 focus:outline-none cursor-pointer"
                     tabIndex={-1}
                     aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
                 >
@@ -116,17 +118,15 @@ const Register = () => {
                 </button>
                 </div>
             </div>
-
-            {/* Neon Glow Button */}
-                <button
+            {/* -----------Submit Button------------- */}
+            <button
                     type="submit"
                     className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg text-white font-semibold shadow-md hover:scale-[1.02] transition-all relative overflow-hidden"
                     >
                     <span className="relative z-10">Sign Up 🚀</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 blur-lg opacity-50 animate-pulse"></div>
-                </button>
-
-            {/* Links */}
+            </button>
+            {/* -----------Forget Pass & Login------------- */}
             <div className="flex justify-between text-sm text-gray-400 mt-4">
                 <Link to={'/'} className="hover:text-purple-400">Forgot Password?</Link>
                 <Link to={'/'} className="hover:text-purple-400">Login</Link>

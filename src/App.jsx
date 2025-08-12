@@ -4,6 +4,7 @@ import Register from './pages/Register'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router'
 import LayoutOne from './layout/LayoutOne'
 import Home from './pages/Home'
+import app from './firebase.config'
 const App = () => {
 
   const MyRoute = createBrowserRouter(createRoutesFromElements(

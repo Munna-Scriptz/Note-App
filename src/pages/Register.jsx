@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { FaEnvelope, FaLock, FaUser } from 'react-icons/fa'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { Link } from 'react-router'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const Register = () => {
     const [formData , setFormData] = useState({
@@ -18,6 +19,7 @@ const Register = () => {
         passwordConfirmError: 'Confirm Password',
         passwordConfirmErrorCol: 'text-white',
     })
+    const auth = getAuth();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const PasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
@@ -29,9 +31,20 @@ const Register = () => {
         if(!EmailRegex.test(formData.email)) return setFormData({...formData , emailError: 'Please enter a valid email' , emailErrorCol: 'text-red-500'})
         if(!PasswordRegex.test(formData.password)) return setFormData({...formData , passwordError: 'Choose a strong password' , passwordErrorCol: 'text-red-500'})
         if(formData.password != formData.passwordConfirm) return setFormData({...formData , passwordConfirmError: 'Password does not match' , passwordConfirmErrorCol: 'text-red-500'})
-        else{
-            console.log('Form submitted successfully!')
-        }
+        console.log('Form submitted successfully!')
+
+        // ------------Firebase Auth 
+        createUserWithEmailAndPassword(auth, formData.email, formData.password)
+        .then((userCredential) => {
+            // Signed up 
+            const user = userCredential.user;
+            // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(error)
+        });
     }
   return (
     <>
@@ -68,13 +81,13 @@ const Register = () => {
                 <input
                     type="email"
                     onChange={(e)=>setFormData((prev)=>({...prev , email: e.target.value , emailErrorCol: 'text-white',}))}
+                    autoComplete='username'
                     placeholder="Enter email"
                     className="w-full pl-10 pr-4 py-3 rounded-lg bg-[#121212] text-white placeholder-gray-500 border border-gray-700 focus:outline-none focus:border-purple-400"
                 />
                 </div>
             </div>
             {/* -----------Password------------- */}
-
             <div>
                 <label className={`block text-gray-300 text-sm mb-1 ${formData.passwordErrorCol}`}>{formData.passwordError}</label>
                 <div className="relative">
@@ -83,6 +96,7 @@ const Register = () => {
                     type={showPassword ? "text" : "password"}
                     onChange={(e)=>setFormData((prev)=>({...prev , password: e.target.value , passwordErrorCol: 'text-white',}))}
                     placeholder="Enter password"
+                    autoComplete='new-password'
                     className="w-full pl-10 pr-12 py-3 rounded-lg bg-[#121212] text-white placeholder-gray-500 border border-gray-700 focus:outline-none focus:border-purple-400"
                 />
                 <button
@@ -103,6 +117,7 @@ const Register = () => {
                 <FaLock className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-500" />
                 <input
                     type={showConfirmPassword ? "text" : "password"}
+                    autoComplete='new-password'
                     onChange={(e)=>setFormData((prev)=>({...prev , passwordConfirm: e.target.value , passwordConfirmErrorCol: 'text-white',}))}
                     placeholder="Confirm password"
                     className="w-full pl-10 pr-12 py-3 rounded-lg bg-[#121212] text-white placeholder-gray-500 border border-gray-700 focus:outline-none focus:border-purple-400"
@@ -121,9 +136,9 @@ const Register = () => {
             {/* -----------Submit Button------------- */}
             <button
                     type="submit"
-                    className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg text-white font-semibold shadow-md hover:scale-[1.02] transition-all relative overflow-hidden"
+                    className="w-full cursor-pointer py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg text-white font-semibold shadow-md hover:scale-[1.02] transition-all relative overflow-hidden"
                     >
-                    <span className="relative z-10">Sign Up 🚀</span>
+                    <span className="relative z-10">Sign Up</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 blur-lg opacity-50 animate-pulse"></div>
             </button>
             {/* -----------Forget Pass & Login------------- */}

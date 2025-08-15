@@ -51,7 +51,7 @@ const Login = () => {
             });
             localStorage.setItem('userInfo' , JSON.stringify(user))
             dispatch(userInfo(user))
-            // navigate('/')
+            navigate('/')
             setLoader(false)
             console.log(localStorage.getItem('userInfo'))
         })

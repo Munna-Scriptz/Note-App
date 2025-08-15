@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { FaEnvelope, FaLock, FaUser } from 'react-icons/fa'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { Bounce, toast } from 'react-toastify';
 import { HashLoader } from 'react-spinners';
-
+import ProfileImage from '../assets/images/userImage.png'
 const Register = () => {
     const [formData , setFormData] = useState({
         username: '',
@@ -22,6 +22,8 @@ const Register = () => {
         passwordConfirmErrorCol: 'text-white',
     })
     const auth = getAuth(); 
+    // --------Navigate 
+    const navigate = useNavigate()
     // --------Loader State 
     const [loader , setLoader] = useState(false)
     // --------ShowPass State 
@@ -57,9 +59,8 @@ const Register = () => {
                 transition: Bounce,
             });
             // -----------Username & profile 
-            updateProfile(auth.currentUser, {
-                displayName: formData.username, photoURL: "https://example.com/jane-q-user/profile.jpg"
-            }).then(() => {
+            updateProfile(auth.currentUser, {displayName: formData.username, photoURL: ProfileImage})
+            .then(() => {
                 // ---------OTP verification 
                 sendEmailVerification(auth.currentUser)
                 .then(() => {
@@ -78,6 +79,7 @@ const Register = () => {
             }).catch((error) => {
                 console.log(error)
             });
+            navigate('/Login')
         })
         .catch((error) => {
             const errorCode = error.code;

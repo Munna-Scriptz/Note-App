@@ -1,11 +1,16 @@
 import React from "react";
 import { FaSearch, FaPlus, FaBell, FaUserCircle, FaSignOutAlt, FaMoon, FaSun, FaStickyNote } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { Link } from "react-router";
 
 const Home = () => {
+  // --------Redux Data----------
+  const reduxData = useSelector((state)=>state.MyRedux.value)
+  console.log(reduxData)
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-[#202124] transition-colors">
       {/* Navbar */}
-      <nav className="flex items-center justify-between px-4 py-3 bg-white dark:bg-[#2d2e30] shadow-md sticky top-0 z-50">
+      <nav className="flex items-center justify-between px-4 py-5 bg-white dark:bg-[#2d2e30] shadow-md sticky top-0 z-50">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <span className="font-bold text-lg dark:text-white">MyNotes</span>
@@ -23,10 +28,16 @@ const Home = () => {
 
         {/* Icons */}
         <div className="flex items-center gap-5 text-gray-600 dark:text-gray-300">
+          <div className="flex items-center gap-[12px]">
+            <div className="w-10 h-10">
+              <img src={reduxData.photoURL} alt="pfp" />
+            </div>
+            <p>{reduxData.displayName}</p>
+          </div>
           <FaBell size={20} className="cursor-pointer hover:text-yellow-500" />
           <FaMoon size={20} className="cursor-pointer hover:text-purple-400" />
           <FaUserCircle size={26} className="cursor-pointer hover:text-blue-400" />
-          <FaSignOutAlt size={20} className="cursor-pointer hover:text-red-500" />
+          <Link to={'/Register'}><FaSignOutAlt size={20} className="cursor-pointer hover:text-red-500" /></Link>
         </div>
       </nav>
 

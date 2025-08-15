@@ -20,7 +20,7 @@ const Login = () => {
     // ------------FormData Handler----------
     const HandleFormData = (e) =>{
         e.preventDefault()
-        if(!formData.email || !formData.password) return setFormData({...formData, emailError: 'Please Enter Your Email', emailErrorCol: 'text-red-500',})
+        if(!formData.email || !formData.password) return setFormData({...formData, emailError: 'Please Enter Your Email', emailErrorCol: 'text-red-500', passwordError:'Please Enter Your Password' , passwordErrorCol: 'text-red-500'})
 
         console.log('hello')
     }

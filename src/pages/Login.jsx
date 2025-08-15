@@ -11,11 +11,17 @@ const Login = () => {
     // --------Data 
     const [formData , setFormData] = useState({
         email: '',
+        emailError: 'Your Email',
+        emailErrorCol: 'text-white',
         password: '',
+        passwordError: 'Your Password',
+        passwordErrorCol: 'text-white',
     })
     // ------------FormData Handler----------
     const HandleFormData = (e) =>{
         e.preventDefault()
+        if(!formData.email || !formData.password) return setFormData({...formData, emailError: 'Please Enter Your Email', emailErrorCol: 'text-red-500',})
+
         console.log('hello')
     }
   return (
@@ -32,7 +38,7 @@ const Login = () => {
         {/*-------------- Form Box------------------- */}
         <div className="w-full max-w-lg p-8 rounded-xl bg-[#1a1a1a]/90 border border-gray-800 shadow-xl backdrop-blur-md relative z-10">
             <h2 className="text-3xl font-bold text-white text-center mb-6">
-            Create Account
+            Login
             </h2>
             <form onSubmit={HandleFormData} className="space-y-5">
             {/* -----------Email------------- */}
@@ -83,7 +89,7 @@ const Login = () => {
             {/* -----------Forget Pass & Login------------- */}
             <div className="flex justify-between text-sm text-gray-400 mt-4">
                 <Link to={'/'} className="hover:text-purple-400">Forgot Password?</Link>
-                <Link to={'/Login'} className="hover:text-purple-400">Login</Link>
+                <Link to={'/Register'} className="hover:text-purple-400">New user? Create a account</Link>
             </div>
             </form>
         </div>

@@ -200,7 +200,7 @@ const Register = () => {
             {/* -----------Forget Pass & Login------------- */}
             <div className="flex justify-between text-sm text-gray-400 mt-4">
                 <Link to={'/'} className="hover:text-purple-400">Forgot Password?</Link>
-                <Link to={'/'} className="hover:text-purple-400">Login</Link>
+                <Link to={'/Login'} className="hover:text-purple-400">Login</Link>
             </div>
             </form>
         </div>

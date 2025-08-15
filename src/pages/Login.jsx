@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
 import { FaEnvelope, FaEye, FaEyeSlash, FaLock } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { HashLoader } from 'react-spinners';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Bounce, toast } from 'react-toastify';
 
 const Login = () => {
     // -------Loader 
     const [loader , setLoader] = useState(false)
     // -------showPassword 
     const [showPassword, setShowPassword] = useState(false);
-    // --------Data 
+    // --------Navigate
+    const navigate = useNavigate()
+    // -----------------------Form Data 
+    const auth = getAuth();
     const [formData , setFormData] = useState({
         email: '',
         emailError: 'Your Email',
@@ -21,7 +26,34 @@ const Login = () => {
     const HandleFormData = (e) =>{
         e.preventDefault()
         if(!formData.email || !formData.password) return setFormData({...formData, emailError: 'Please Enter Your Email', emailErrorCol: 'text-red-500', passwordError:'Please Enter Your Password' , passwordErrorCol: 'text-red-500'})
-
+        setLoader(!loader)
+        // ---------Firebase Login---------
+        signInWithEmailAndPassword(auth, formData.email, formData.password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            console.log(user)
+            // ...
+            if(user.emailVerified === false) return setLoader(false), toast.error('Please Verify your email first', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
+            navigate('/')
+            setLoader(false)
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode)
+            setLoader(false)
+        });
         console.log('hello')
     }
   return (

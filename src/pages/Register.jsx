@@ -174,7 +174,7 @@ const Register = () => {
                 <input
                     type={showConfirmPassword ? "text" : "password"}
                     autoComplete='new-password'
-                    onChange={(e)=>setFormData((prev)=>({...prev , passwordConfirm: e.target.value , passwordConfirmErrorCol: 'text-white',}))}
+                    onChange={(e)=>setFormData((prev)=>({...prev , passwordConfirm: e.target.value , passwordConfirmErrorCol: 'text-white', passwordConfirmError:'Confirm Password'}))}
                     placeholder="Confirm password"
                     className="w-full pl-10 pr-12 py-3 rounded-lg bg-[#121212] text-white placeholder-gray-500 border border-gray-700 focus:outline-none focus:border-purple-400"
                 />

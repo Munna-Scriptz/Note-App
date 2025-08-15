@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router';
 import { HashLoader } from 'react-spinners';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Bounce, toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { userInfo } from '../slice/LoginInfoSlice';
 
 const Login = () => {
     // -------Loader 
@@ -12,6 +14,8 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     // --------Navigate
     const navigate = useNavigate()
+    // ---------Redux 
+    const dispatch = useDispatch()
     // -----------------------Form Data 
     const auth = getAuth();
     const [formData , setFormData] = useState({
@@ -45,8 +49,11 @@ const Login = () => {
                 theme: "dark",
                 transition: Bounce,
             });
-            navigate('/')
+            localStorage.setItem('userInfo' , JSON.stringify(user))
+            dispatch(userInfo(user))
+            // navigate('/')
             setLoader(false)
+            console.log(localStorage.getItem('userInfo'))
         })
         .catch((error) => {
             const errorCode = error.code;

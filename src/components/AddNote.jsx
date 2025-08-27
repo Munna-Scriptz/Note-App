@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FaStickyNote } from 'react-icons/fa'
+import { FaPen, FaStickyNote } from 'react-icons/fa'
 import { LuPin } from 'react-icons/lu'
 import { MdLabelOutline } from 'react-icons/md'
 
@@ -7,16 +7,22 @@ const AddNote = () => {
 
   const [inpValue , setInpValue] = useState('')
   const [color , setColor] = useState('white')
-  console.log(color)
+  console.log(inpValue)
 
   return (
     <>
-    <div className="relative w-[80%] max-w-2xl mx-auto bg-primary rounded-lg px-4 py-3 shadow-md">
-      <div className="flex items-center">
-        <FaStickyNote className="text-gray-500 mr-3" />
-        <input onChange={(e)=>{setInpValue(e.target.value)}} type="text" placeholder="Take a note..." className="bg-transparent w-full outline-none dark:text-white"/>
-        <button className="absolute top-0 right-0 bg-white h-full w-[110px] cursor-pointer text-[#202124] font-medium rounded-lg">Add Note</button>
+    <div className="relative w-[80%] max-w-2xl mx-auto bg-primary rounded-lg px-4 py-3 shadow-md flex justify-between items-center">
+      <div>
+        <div className="flex items-center">
+          <FaStickyNote className="text-gray-500 mr-3" />
+          <input onChange={(e)=>{setInpValue(e.target.value)}} type="text" placeholder="Take a note..." className="bg-transparent w-full outline-none text-white"/>
+        </div>
+        <div className='flex items-start mt-10'>
+          <FaPen className='text-gray-500 mr-3'/>
+          <textarea className='bg-transparent outline-none text-white overflow-x-hidden' onInput={(e)=>{e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px";}} cols={55} placeholder='Your note...'></textarea>
+        </div>
       </div>
+      <button className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Add Note</button>
     </div>
 
     {/* ------------------Appear Color Div ------------------- */}

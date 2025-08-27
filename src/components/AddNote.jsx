@@ -15,9 +15,9 @@ const AddNote = () => {
       <div>
         <div className="flex items-center">
           <FaStickyNote className="text-gray-500 mr-3" />
-          <input onChange={(e)=>{setInpValue(e.target.value)}} type="text" placeholder="Take a note..." className="bg-transparent w-full outline-none text-white"/>
+          <input onChange={(e)=>{setInpValue(e.target.value)}} type="text" placeholder="Take a note title..." className="bg-transparent w-full outline-none text-white"/>
         </div>
-        <div className='flex items-start mt-10'>
+        <div className={`${!inpValue? 'hidden' : 'visible'} flex items-start mt-10 delay-75 duration-200`}>
           <FaPen className='text-gray-500 mr-3'/>
           <textarea className='bg-transparent outline-none text-white overflow-x-hidden' onInput={(e)=>{e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px";}} cols={55} placeholder='Your note...'></textarea>
         </div>
@@ -26,7 +26,7 @@ const AddNote = () => {
     </div>
 
     {/* ------------------Appear Color Div ------------------- */}
-    <div className={`relative flex items-center justify-between w-[80%] max-w-2xl mx-auto duration-300 bg-[${color}] rounded-lg px-4 py-4 mt-5 shadow-md`}>
+    <div className={`${!inpValue? 'hidden' : 'visible'} relative flex items-center justify-between w-[80%] max-w-2xl mx-auto duration-300 bg-[${color}] rounded-lg px-4 py-4 mt-5 shadow-md`}>
       <div className='flex items-center gap-3'>
         <span onClick={()=>{setColor('white')}} className='w-[20px] h-[20px]   border-1 border-brand rounded-full bg-[white] cursor-pointer'></span>
         <span onClick={()=>{setColor('#3BA1FA')}} className='w-[20px] h-[20px] border-1 border-brand rounded-full bg-[#3BA1FA] cursor-pointer'></span>

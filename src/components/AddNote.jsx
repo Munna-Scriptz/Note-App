@@ -3,11 +3,23 @@ import { FaPen, FaStickyNote } from 'react-icons/fa'
 import { LuPin } from 'react-icons/lu'
 import { MdLabelOutline } from 'react-icons/md'
 
-const AddNote = () => {
+// ---------Firebase Import-------- 
+import { getDatabase, push, ref, set } from "firebase/database";
 
+const AddNote = () => {
+  // ---------------Input TextArea--------------
   const [inpValue , setInpValue] = useState('')
+  const [noteContent , setNoteContent] = useState('')
   const [color , setColor] = useState('white')
-  console.log(inpValue)
+  // ---------------Firebase--------------
+  const db = getDatabase();
+
+  const handleNotes = ()=>{
+      set(push(ref(db, 'users/')), {
+      title: inpValue,
+      content: noteContent,
+    });
+  }
 
   return (
     <>
@@ -19,10 +31,10 @@ const AddNote = () => {
         </div>
         <div className={`${!inpValue? 'hidden' : 'visible'} flex items-start mt-10 delay-75 duration-200`}>
           <FaPen className='text-gray-500 mr-3'/>
-          <textarea className='bg-transparent outline-none text-white overflow-x-hidden' onInput={(e)=>{e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px";}} cols={55} placeholder='Your note...'></textarea>
+          <textarea onChange={(e)=>{setNoteContent(e.target.value)}} className='bg-transparent outline-none text-white overflow-x-hidden' onInput={(e)=>{e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px";}} cols={55} placeholder='Your note...'></textarea>
         </div>
       </div>
-      <button className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Add Note</button>
+      <button onClick={()=>{handleNotes()}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Add Note</button>
     </div>
 
     {/* ------------------Appear Color Div ------------------- */}

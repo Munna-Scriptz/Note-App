@@ -4,6 +4,9 @@
 
 /* ---------------Container------------- */
 /* ---------------Themes------------- */
-@themes{
+@theme{
   --font-Poppins: "Poppins", "sans-serif";
+  --color-primary: #2d2e30;
+  --color-brand: #E3DBD2;
+  --color-secondary: #fbbc04;
 }

@@ -9,9 +9,10 @@ const Home = () => {
     <div className="min-h-screen bg-gray-100 dark:bg-[#202124] transition-colors pt-6">
       {/*------------- Add Note Input --------------------*/}
       <AddNote/>
-      
+
       {/* -----------Added Notes-------------- */}
       <Notes/>
+
 
       {/*-------------- Floating Add Button -------------------- */}
       <FloatingButton/>

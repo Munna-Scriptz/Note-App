@@ -15,10 +15,13 @@ const AddNote = () => {
   const db = getDatabase();
 
   const handleNotes = ()=>{
-      set(push(ref(db, 'users/')), {
+    set(push(ref(db, 'AllNotes/')), {
       title: inpValue,
       content: noteContent,
+      color: color
     });
+    setInpValue('')
+    setNoteContent('')
   }
 
   return (
@@ -27,11 +30,11 @@ const AddNote = () => {
       <div className='w-[500px]'>
         <div className="flex items-center">
           <FaStickyNote className="text-gray-500 mr-3" />
-          <input onChange={(e)=>{setInpValue(e.target.value)}} type="text" placeholder="Take a note title..." className="bg-transparent w-full h-[40px] outline-none text-white"/>
+          <input value={inpValue} onChange={(e)=>{setInpValue(e.target.value)}} type="text" placeholder="Take a note title..." className="bg-transparent w-full h-[40px] outline-none text-white"/>
         </div>
         <div className={`${!inpValue? 'hidden' : 'visible'} flex items-start mt-10 delay-75 duration-200`}>
           <FaPen className='text-gray-500 mr-3'/>
-          <textarea onChange={(e)=>{setNoteContent(e.target.value)}} className='bg-transparent outline-none text-white overflow-x-hidden' onInput={(e)=>{e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px";}} cols={55} placeholder='Your note...'></textarea>
+          <textarea value={noteContent} onChange={(e)=>{setNoteContent(e.target.value)}} className='bg-transparent outline-none text-white overflow-x-hidden' onInput={(e)=>{e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px";}} cols={55} placeholder='Your note...'></textarea>
         </div>
       </div>
       <button onClick={()=>{handleNotes()}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Add Note</button>
@@ -42,7 +45,7 @@ const AddNote = () => {
       <div className='flex items-center gap-3'>
         <span onClick={()=>{setColor('white')}} className='w-[20px] h-[20px]   border-1 border-brand rounded-full bg-[white] cursor-pointer'></span>
         <span onClick={()=>{setColor('#3BA1FA')}} className='w-[20px] h-[20px] border-1 border-brand rounded-full bg-[#3BA1FA] cursor-pointer'></span>
-        <span onClick={()=>{setColor('#E62727')}} className='w-[20px] h-[20px] border-1 border-brand rounded-full bg-[#E62727] cursor-pointer'></span>
+        <span onClick={()=>{setColor('#2D2E30')}} className='w-[20px] h-[20px] border-1 border-brand rounded-full bg-[#2D2E30] cursor-pointer'></span>
         <span onClick={()=>{setColor('#FCC61D')}} className='w-[20px] h-[20px] border-1 border-brand rounded-full bg-[#FCC61D] cursor-pointer'></span>
         <span onClick={()=>{setColor('#EA5B6F')}} className='w-[20px] h-[20px] border-1 border-brand rounded-full bg-[#EA5B6F] cursor-pointer'></span>
       </div>

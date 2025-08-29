@@ -36,7 +36,6 @@ const Login = () => {
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-            console.log(user)
             // ...
             if(user.emailVerified === false) return setLoader(false), toast.error('Please Verify your email first', {
                 position: "top-right",
@@ -48,18 +47,27 @@ const Login = () => {
                 progress: undefined,
                 theme: "dark",
                 transition: Bounce,
-            });
+            })
             localStorage.setItem('userInfo' , JSON.stringify(user))
             dispatch(userInfo(user))
             navigate('/')
             setLoader(false)
-            console.log(localStorage.getItem('userInfo'))
         })
         .catch((error) => {
             const errorCode = error.code;
-            const errorMessage = error.message;
             console.log(errorCode)
             setLoader(false)
+            toast.error('Something Went Wrong', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            })
         });
         console.log('hello')
     }

@@ -23,11 +23,11 @@ const AddNote = () => {
 
   return (
     <>
-    <div className="relative w-[80%] max-w-2xl mx-auto bg-primary rounded-lg px-4 py-3 shadow-md flex justify-between items-center">
-      <div>
+    <div className="relative w-[80%] max-w-2xl mx-auto bg-primary rounded-lg px-4 py-3 shadow-md flex items-center justify-between">
+      <div className='w-[500px]'>
         <div className="flex items-center">
           <FaStickyNote className="text-gray-500 mr-3" />
-          <input onChange={(e)=>{setInpValue(e.target.value)}} type="text" placeholder="Take a note title..." className="bg-transparent w-full outline-none text-white"/>
+          <input onChange={(e)=>{setInpValue(e.target.value)}} type="text" placeholder="Take a note title..." className="bg-transparent w-full h-[40px] outline-none text-white"/>
         </div>
         <div className={`${!inpValue? 'hidden' : 'visible'} flex items-start mt-10 delay-75 duration-200`}>
           <FaPen className='text-gray-500 mr-3'/>

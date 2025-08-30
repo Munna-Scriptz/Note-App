@@ -5,12 +5,14 @@ import { MdLabelOutline } from 'react-icons/md'
 
 // ---------Firebase Import-------- 
 import { getDatabase, push, ref, set } from "firebase/database";
+import { useSelector } from 'react-redux';
 
 const AddNote = () => {
   // ---------------Input TextArea--------------
   const [inpValue , setInpValue] = useState('')
   const [noteContent , setNoteContent] = useState('')
-  const [color , setColor] = useState('white')
+  const [color , setColor] = useState('#2D2E30')
+  const currentUser = useSelector(state=>state.MyRedux.value)
   // ---------------Firebase--------------
   const db = getDatabase();
 
@@ -18,7 +20,8 @@ const AddNote = () => {
     set(push(ref(db, 'AllNotes/')), {
       title: inpValue,
       content: noteContent,
-      color: color
+      color: color,
+      creatorId : currentUser.uid
     });
     setInpValue('')
     setNoteContent('')

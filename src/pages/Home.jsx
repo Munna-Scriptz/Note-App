@@ -6,7 +6,7 @@ import FloatingButton from "../components/FloatingButton";
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-[#202124] transition-colors pt-6">
+    <div className="min-h-screen transition-colors pt-6">
       {/*------------- Add Note Input --------------------*/}
       <AddNote/>
 

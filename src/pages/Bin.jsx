@@ -29,8 +29,9 @@ const Bin = () => {
     }
     // -------------------Delete All
     const delAll = ()=>{
-        
+      remove(ref(db , 'removedNotes/'))
     } 
+    // -------------------Recover
 
   return (
     <>
@@ -40,7 +41,7 @@ const Bin = () => {
         <h1 className="text-2xl font-semibold text-gray-200">🗑️ Bin</h1>
         <div className="flex gap-2">
           <button className="px-4 py-2 rounded-md bg-[#1f1f1f] text-gray-200 hover:bg-green-600 transition cursor-pointer">Recover All</button>
-          <button className="px-4 py-2 rounded-md bg-[#1f1f1f] text-gray-200 hover:bg-red-600 transition cursor-pointer">Delete All</button>
+          <button onClick={delAll} className="px-4 py-2 rounded-md bg-[#1f1f1f] text-gray-200 hover:bg-red-600 transition cursor-pointer">Delete All</button>
         </div>
       </div>
     </div>
@@ -49,7 +50,7 @@ const Bin = () => {
           {
             showText == null?
             <div className='flex items-center justify-center h-[450px]'>
-              <h1 className='font-Poppins text-white font-medium text-2xl'>You Don't have any notes Yet...</h1>
+              <h1 className='font-Poppins text-white font-medium text-2xl'>You Don't have any Deleted notes...</h1>
             </div>
             :
               delNotes.length == 0?

@@ -22,6 +22,16 @@ const Bin = () => {
             setDelNotes(myArray)
         });
     } , [])
+
+    // -------------------Firebase Delete 
+    const PermDelete = (item)=>{
+        remove(ref(db , 'removedNotes/' + item.key))
+    }
+    // -------------------Delete All
+    const delAll = ()=>{
+        
+    } 
+
   return (
     <>
     <div className="p-6">
@@ -55,7 +65,7 @@ const Bin = () => {
                   {
                     delNotes.map((item , i)=>(
                       <div key={i} className={`p-5 rounded-lg shadow hover:shadow-lg relative`} style={{ backgroundColor: item.notes.color }} >
-                        <div onClick={()=>handleDel(item)} className='absolute top-4 right-4 cursor-pointer hover:bg-[#e0070780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'><RiDeleteBin6Line className='text-white text-[20px]'/></div>
+                        <div onClick={()=>PermDelete(item)} className='absolute top-4 right-4 cursor-pointer hover:bg-[#e0070780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'><RiDeleteBin6Line className='text-white text-[20px]'/></div>
                         <h3 className="font-bold mb-4 text-white">{item.notes.title}</h3>
                         <p className="text-gray-300">{item.notes.content}</p>
                       </div>

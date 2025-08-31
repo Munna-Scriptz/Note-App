@@ -6,6 +6,7 @@ import { MdLabelOutline } from 'react-icons/md'
 // ---------Firebase Import-------- 
 import { getDatabase, push, ref, set } from "firebase/database";
 import { useSelector } from 'react-redux';
+import { IoColorPaletteOutline } from 'react-icons/io5';
 
 const AddNote = () => {
   // ---------------Input TextArea--------------
@@ -46,13 +47,16 @@ const AddNote = () => {
     {/* ------------------Appear Color Div ------------------- */}
     <div className={`${!inpValue? 'hidden' : 'visible'} relative flex items-center justify-between w-[80%] max-w-2xl mx-auto duration-300 bg-[${color}] rounded-lg px-4 py-4 mt-5 shadow-md`}>
       <div className='flex items-center gap-3'>
-        <span onClick={()=>{setColor('white')}} className='w-[20px] h-[20px]   border-1 border-brand rounded-full bg-[white] cursor-pointer'></span>
         <span onClick={()=>{setColor('#3BA1FA')}} className='w-[20px] h-[20px] border-1 border-brand rounded-full bg-[#3BA1FA] cursor-pointer'></span>
         <span onClick={()=>{setColor('#2D2E30')}} className='w-[20px] h-[20px] border-1 border-brand rounded-full bg-[#2D2E30] cursor-pointer'></span>
         <span onClick={()=>{setColor('#FCC61D')}} className='w-[20px] h-[20px] border-1 border-brand rounded-full bg-[#FCC61D] cursor-pointer'></span>
         <span onClick={()=>{setColor('#EA5B6F')}} className='w-[20px] h-[20px] border-1 border-brand rounded-full bg-[#EA5B6F] cursor-pointer'></span>
+        <div className='ml-2'>
+          <label htmlFor='colors' className='text-white text-2xl cursor-pointer'><IoColorPaletteOutline /></label>
+          <input className='hidden' type="color" id="colors" />
+        </div>
       </div>
-      <div className='flex items-center gap-3'>
+      <div className='flex items-center gap-3 text-white'>
         <div className='cursor-pointer'><LuPin size={22}/></div>
         <div className='cursor-pointer'><MdLabelOutline size={24}/></div>
       </div>

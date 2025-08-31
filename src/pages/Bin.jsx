@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { getDatabase, ref, onValue, remove, set, push } from "firebase/database";
 import { useSelector } from 'react-redux';
+import { MdLoop } from 'react-icons/md';
 
 const Bin = () => {
     const db = getDatabase();
@@ -9,7 +10,8 @@ const Bin = () => {
     const currentUser = useSelector(state=>state.MyRedux.value)
     
     const [showText , setShowText] = useState('')
-    // ---------------------Firebase Notes 
+
+    // ---------------------Firebase Notes Show
     useEffect(()=>{
         onValue(ref(db , 'removedNotes/'), (snapshot) => {
             setShowText(snapshot.val())
@@ -23,7 +25,7 @@ const Bin = () => {
         });
     } , [])
 
-    // -------------------Firebase Delete 
+    // -------------------Notes single Delete 
     const PermDelete = (item)=>{
         remove(ref(db , 'removedNotes/' + item.key))
     }
@@ -31,8 +33,26 @@ const Bin = () => {
     const delAll = ()=>{
       remove(ref(db , 'removedNotes/'))
     } 
-    // -------------------Recover
-
+    // -------------------Recover Single note
+    const recoverNotes = (item)=>{
+      set(push(ref(db, 'AllNotes/')), {
+        title: item.notes.title,
+        content: item.notes.content,
+        color: item.notes.color,
+        creatorId : currentUser.uid
+      });
+      remove(ref(db , 'removedNotes/' + item.key))
+    }
+    // -------------------Recover Single note
+    const recoverAllNotes = ()=>{
+      set(push(ref(db, 'AllNotes/')), {
+        title: delNotes,
+        content: delNotes,
+        color: delNotes,
+        creatorId : currentUser.uid
+      });
+      remove(ref(db , 'removedNotes/'))
+    }
   return (
     <>
     <div className="p-6">
@@ -40,8 +60,8 @@ const Bin = () => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-semibold text-gray-200">🗑️ Bin</h1>
         <div className="flex gap-2">
-          <button className="px-4 py-2 rounded-md bg-[#1f1f1f] text-gray-200 hover:bg-green-600 transition cursor-pointer">Recover All</button>
-          <button onClick={delAll} className="px-4 py-2 rounded-md bg-[#1f1f1f] text-gray-200 hover:bg-red-600 transition cursor-pointer">Delete All</button>
+          <button onClick={recoverAllNotes} className="px-4 py-2 rounded-md bg-[#2D2E30] text-gray-200 hover:bg-green-600 transition cursor-pointer">Recover All</button>
+          <button onClick={delAll} className="px-4 py-2 rounded-md bg-[#2D2E30] text-gray-200 hover:bg-red-600 transition cursor-pointer">Delete All</button>
         </div>
       </div>
     </div>
@@ -66,7 +86,16 @@ const Bin = () => {
                   {
                     delNotes.map((item , i)=>(
                       <div key={i} className={`p-5 rounded-lg shadow hover:shadow-lg relative`} style={{ backgroundColor: item.notes.color }} >
-                        <div onClick={()=>PermDelete(item)} className='absolute top-4 right-4 cursor-pointer hover:bg-[#e0070780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'><RiDeleteBin6Line className='text-white text-[20px]'/></div>
+                        {/* -----------------Recover And Delete------------------- */}
+                        <div className='flex items-center gap-0 absolute top-4 right-4'>
+                          <div onClick={()=>recoverNotes(item)} className='cursor-pointer hover:bg-[#21c21280] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'>
+                            <MdLoop className='text-white text-[20px]'/>
+                          </div>
+                          <div onClick={()=>PermDelete(item)} className='cursor-pointer hover:bg-[#e0070780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'>
+                            <RiDeleteBin6Line className='text-white text-[20px]'/>
+                          </div>
+                        </div>
+                        {/* ----------------Notes Title And Content--------------------- */}
                         <h3 className="font-bold mb-4 text-white">{item.notes.title}</h3>
                         <p className="text-gray-300">{item.notes.content}</p>
                       </div>

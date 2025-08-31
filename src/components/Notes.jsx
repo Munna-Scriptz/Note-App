@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { RiDeleteBin6Line } from 'react-icons/ri'
+import { RiDeleteBin6Line, RiEdit2Fill } from 'react-icons/ri'
 import { getDatabase, ref, onValue, remove, set, push } from "firebase/database";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateNote } from '../slice/LoginInfoSlice';
 
 
 const Notes = () => {
   const db = getDatabase();
   const [noteItem , setNoteItem] = useState([])
-  const currentUser = useSelector(state=>state.MyRedux.value)
   const [showText , setShowText] = useState('')
+  // ----------------------------------------------Redux Hooks And Edit
+  const currentUser = useSelector(state=>state.MyRedux.value)
+  const dispatch = useDispatch()
 
+  const handleEdit = (item)=>{
+    dispatch(updateNote(item.notes))
+    remove(ref(db , 'AllNotes/' + item.key))
+  }
+  // ---------------------------------------------Read Notes from firebase 
   useEffect(()=>{
     onValue(ref(db , 'AllNotes/'), (snapshot) => {
       setShowText(snapshot.val())
@@ -18,6 +26,8 @@ const Notes = () => {
       snapshot.forEach((item)=>{
         if(item.val().creatorId == currentUser.uid){
           myArray.push({key: item.key , notes: item.val()})
+        }else{
+          setShowText(item.val())
         }
       })
       setNoteItem(myArray)
@@ -25,13 +35,14 @@ const Notes = () => {
   } , [])
   // ---------------------Delete Note-----------------
   const handleDel = (Data)=>{
+    // ---------Adds notes to RemoveNotes 
     set(push(ref(db, 'removedNotes/')), {
       title: Data.notes.title,
       content: Data.notes.content,
       color: Data.notes.color,
       creatorId : currentUser.uid
     });
-    // ------------Remove 
+    // ---------Delete Notes from home
     remove(ref(db , 'AllNotes/' + Data.key))
   }
   return (
@@ -56,7 +67,8 @@ const Notes = () => {
               {
                 noteItem.map((item , i)=>(
                   <div key={i} className={`p-5 rounded-lg shadow hover:shadow-lg relative`} style={{ backgroundColor: item.notes.color }} >
-                    <div onClick={()=>handleDel(item)} className='absolute top-4 right-4 cursor-pointer hover:bg-[#e0070780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'><RiDeleteBin6Line className='text-white text-[20px]'/></div>
+                    <button onClick={()=>handleDel(item)} className='absolute top-4 right-4 cursor-pointer hover:bg-[#e0070780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'><RiDeleteBin6Line className='text-white text-[20px]'/></button>
+                    <button onClick={()=>handleEdit(item)} className='absolute top-4 right-14 cursor-pointer hover:bg-[#cae00780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'><RiEdit2Fill className='text-white text-[20px]'/></button>
                     <h3 className="font-bold mb-4 text-white">{item.notes.title}</h3>
                     <p className="text-gray-300">{item.notes.content}</p>
                   </div>

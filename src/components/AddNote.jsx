@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaPen, FaStickyNote } from 'react-icons/fa'
 import { LuPin } from 'react-icons/lu'
 import { MdLabelOutline } from 'react-icons/md'
@@ -14,6 +14,13 @@ const AddNote = () => {
   const [noteContent , setNoteContent] = useState('')
   const [color , setColor] = useState('#2D2E30')
   const currentUser = useSelector(state=>state.MyRedux.value)
+  const updateContent = useSelector(state=>state.MyRedux.updated)
+  console.log(updateContent)
+  useEffect(()=>{
+    setInpValue(updateContent?.title || '')
+    setNoteContent(updateContent?.content || '')
+    setColor(updateContent?.color || '#2D2E30')
+  }, [updateContent])
   // ---------------Firebase--------------
   const db = getDatabase();
 
@@ -34,14 +41,19 @@ const AddNote = () => {
       <div className='w-[500px]'>
         <div className="flex items-center">
           <FaStickyNote className="text-gray-500 mr-3" />
-          <input value={inpValue} onChange={(e)=>{setInpValue(e.target.value)}} type="text" placeholder="Take a note title..." className="bg-transparent w-full h-[40px] outline-none text-white"/>
+          <input value={inpValue || ''} onChange={(e)=>{setInpValue(e.target.value)}} type="text" placeholder="Take a note title..." className="bg-transparent w-full h-[40px] outline-none text-white"/>
         </div>
         <div className={`${!inpValue? 'hidden' : 'visible'} flex items-start mt-10 delay-75 duration-200`}>
           <FaPen className='text-gray-500 mr-3'/>
-          <textarea value={noteContent} onChange={(e)=>{setNoteContent(e.target.value)}} className='bg-transparent outline-none text-white overflow-x-hidden' onInput={(e)=>{e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px";}} cols={55} placeholder='Your note...'></textarea>
+          <textarea value={noteContent || ''} onChange={(e)=>{setNoteContent(e.target.value)}} className='bg-transparent outline-none text-white overflow-x-hidden' onInput={(e)=>{e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px";}} cols={55} placeholder='Your note...'></textarea>
         </div>
       </div>
-      <button onClick={()=>{handleNotes()}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Add Note</button>
+      {
+        updateContent?.title?
+        <button onClick={()=>{handleNotes() , setInpValue('')}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Update Note</button>
+        :
+        <button onClick={()=>{handleNotes()}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Add Note</button>
+      }
     </div>
 
     {/* ------------------Appear Color Div ------------------- */}

@@ -18,6 +18,8 @@ const Bin = () => {
             snapshot.forEach((item)=>{
               if(item.val().creatorId == currentUser.uid){
                 myArray.push({key: item.key , notes: item.val()})
+              }else{
+                setShowText(item.val())
               }
             })
 

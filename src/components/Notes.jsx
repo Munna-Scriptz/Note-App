@@ -28,7 +28,8 @@ const Notes = () => {
     set(push(ref(db, 'removedNotes/')), {
       title: Data.notes.title,
       content: Data.notes.content,
-      color: Data.notes.color
+      color: Data.notes.color,
+      creatorId : currentUser.uid
     });
     // ------------Remove 
     remove(ref(db , 'AllNotes/' + Data.key))

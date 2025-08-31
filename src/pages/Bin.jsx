@@ -8,9 +8,7 @@ const Bin = () => {
     const db = getDatabase();
     const [delNotes , setDelNotes] = useState([])
     const currentUser = useSelector(state=>state.MyRedux.value)
-    
     const [showText , setShowText] = useState('')
-
     // ---------------------Firebase Notes Show
     useEffect(()=>{
         onValue(ref(db , 'removedNotes/'), (snapshot) => {
@@ -18,7 +16,9 @@ const Bin = () => {
             const myArray = []
 
             snapshot.forEach((item)=>{
+              if(item.val().creatorId == currentUser.uid){
                 myArray.push({key: item.key , notes: item.val()})
+              }
             })
 
             setDelNotes(myArray)
@@ -31,7 +31,9 @@ const Bin = () => {
     }
     // -------------------Delete All
     const delAll = ()=>{
-      remove(ref(db , 'removedNotes/'))
+      delNotes.map((item)=>{
+        remove(ref(db , 'removedNotes/' + item.key))
+      })
     } 
     // -------------------Recover Single note
     const recoverNotes = (item)=>{
@@ -45,13 +47,16 @@ const Bin = () => {
     }
     // -------------------Recover Single note
     const recoverAllNotes = ()=>{
-      set(push(ref(db, 'AllNotes/')), {
-        title: delNotes,
-        content: delNotes,
-        color: delNotes,
-        creatorId : currentUser.uid
-      });
-      remove(ref(db , 'removedNotes/'))
+      delNotes.map((item)=>{
+        set(push(ref(db, 'AllNotes/')), {
+          title: item.notes.title,
+          content: item.notes.content,
+          color: item.notes.color,
+          creatorId : currentUser.uid
+        });
+        remove(ref(db , 'removedNotes/' + item.key))
+      })
+      
     }
   return (
     <>

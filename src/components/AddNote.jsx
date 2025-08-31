@@ -45,7 +45,7 @@ const AddNote = () => {
     </div>
 
     {/* ------------------Appear Color Div ------------------- */}
-    <div className={`${!inpValue? 'hidden' : 'visible'} relative flex items-center justify-between w-[80%] max-w-2xl mx-auto duration-300 bg-[${color}] rounded-lg px-4 py-4 mt-5 shadow-md`}>
+    <div className={`${!inpValue? 'hidden' : 'visible'} relative flex items-center justify-between w-[80%] max-w-2xl mx-auto duration-300 rounded-lg px-4 py-4 mt-5 shadow-md`} style={{ backgroundColor: color }} >
       <div className='flex items-center gap-3'>
         <span onClick={()=>{setColor('#3BA1FA')}} className='w-[20px] h-[20px] border-1 border-brand rounded-full bg-[#3BA1FA] cursor-pointer'></span>
         <span onClick={()=>{setColor('#2D2E30')}} className='w-[20px] h-[20px] border-1 border-brand rounded-full bg-[#2D2E30] cursor-pointer'></span>
@@ -53,7 +53,7 @@ const AddNote = () => {
         <span onClick={()=>{setColor('#EA5B6F')}} className='w-[20px] h-[20px] border-1 border-brand rounded-full bg-[#EA5B6F] cursor-pointer'></span>
         <div className='ml-2'>
           <label htmlFor='colors' className='text-white text-2xl cursor-pointer'><IoColorPaletteOutline /></label>
-          <input className='hidden' type="color" id="colors" />
+          <input onChange={(e)=>setColor(e.target.value)} className='hidden' type="color" id="colors" />
         </div>
       </div>
       <div className='flex items-center gap-3 text-white'>

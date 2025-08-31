@@ -1,6 +1,8 @@
 /* -----------------Common Css----------------- */
 body{
   font-family: "Poppins", sans-serif;
+  background-color: #2D2E30;
+  color: white;
 }
 
 #LoaderBG{

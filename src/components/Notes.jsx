@@ -62,9 +62,7 @@ const Notes = () => {
                 ))
               }
             </div>
-
       }
-
     </div>
     </>
   )

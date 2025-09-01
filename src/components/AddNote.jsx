@@ -61,9 +61,9 @@ const AddNote = () => {
       </div>
       {
         updateCng == true?
-        <button onClick={()=>{handleNotes() , setInpValue('') , setUpdateCng(false) , dispatch(pinNote('AllNotes/')), setIsPin(false)}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Update Note</button>
+        <button onClick={()=>{handleNotes() , setInpValue('') , setUpdateCng(false) , dispatch(pinNote('AllNotes/')), setIsPin(false)}} className="bg-white h-[40px] hover:bg-[#666666] hover:text-white hover:scale-[1.05] duration-[.3s] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Update Note</button>
         :
-        <button onClick={()=>{handleNotes() , dispatch(pinNote('AllNotes/')), setIsPin(false)}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Add Note</button>
+        <button onClick={()=>{handleNotes() , dispatch(pinNote('AllNotes/')), setIsPin(false)}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] hover:bg-[#666666] hover:text-white hover:scale-[1.05] duration-[.3s] font-medium rounded-lg">Add Note</button>
       }
     </div>
 

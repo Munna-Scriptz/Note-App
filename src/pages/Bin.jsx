@@ -3,6 +3,9 @@ import { RiDeleteBin6Line } from 'react-icons/ri'
 import { getDatabase, ref, onValue, remove, set, push } from "firebase/database";
 import { useSelector } from 'react-redux';
 import { MdLoop } from 'react-icons/md';
+import deleteIcon from '../assets/images/deleteIcon.svg'
+import recoverIcon from '../assets/images/recoverIcon.svg'
+import dustBin from '../assets/images/dustbinIcon.svg'
 
 const Bin = () => {
     const db = getDatabase();
@@ -70,7 +73,7 @@ const Bin = () => {
     <div className="p-6">
       {/* ------------------------Header----------------------------*/}
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold text-gray-200">🗑️ Bin</h1>
+        <h1 className="text-2xl font-semibold text-gray-200 flex items-center gap-3"><img className='w-[40px]' src={dustBin} alt="Dustbin" /> Trash</h1>
         <div className="flex gap-2">
           <button onClick={recoverAllNotes} className="px-4 py-2 rounded-md bg-[#2D2E30] text-gray-200 hover:bg-green-600 transition cursor-pointer">Recover All</button>
           <button onClick={delAll} className="px-4 py-2 rounded-md bg-[#2D2E30] text-gray-200 hover:bg-red-600 transition cursor-pointer">Delete All</button>
@@ -101,10 +104,10 @@ const Bin = () => {
                         {/* -----------------Recover And Delete------------------- */}
                         <div className='flex items-center gap-0 absolute top-4 right-4'>
                           <div onClick={()=>recoverNotes(item)} className='cursor-pointer hover:bg-[#21c21280] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'>
-                            <MdLoop className='text-white text-[20px]'/>
+                            <img className='w-[20px]' src={recoverIcon} alt="delete" />
                           </div>
                           <div onClick={()=>PermDelete(item)} className='cursor-pointer hover:bg-[#e0070780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'>
-                            <RiDeleteBin6Line className='text-white text-[20px]'/>
+                            <img className='w-[24px]' src={deleteIcon} alt="delete" />
                           </div>
                         </div>
                         {/* ----------------Notes Title And Content--------------------- */}

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateNote } from '../slice/LoginInfoSlice';
 import pinIcon from '../assets/images/pinIcon.svg'
 import regularIcon from '../assets/images/regularNotes.svg'
+import deleteIcon from '../assets/images/deleteIcon.svg'
+import editIcon from '../assets/images/editIcon.svg'
 
 const PinnedNotes = () => {
     const db = getDatabase();
@@ -59,8 +61,12 @@ const PinnedNotes = () => {
         {
             noteItem.map((item , i)=>(
                 <div key={i} className={`p-5 rounded-lg shadow hover:shadow-lg relative`} style={{ backgroundColor: item.notes.color }} >
-                  <button onClick={()=>handleDel(item)} className='absolute top-4 right-4 cursor-pointer hover:bg-[#e0070780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'><RiDeleteBin6Line className='text-white text-[20px]'/></button>
-                  <button onClick={()=>handleEdit(item)} className='absolute top-4 right-14 cursor-pointer hover:bg-[#cae00780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'><RiEdit2Fill className='text-white text-[20px]'/></button>
+                    <button onClick={()=>handleDel(item)} className='absolute top-4 right-4 cursor-pointer hover:bg-[#e0070780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'>
+                        <img className='w-[24px]' src={deleteIcon} alt="delete" />
+                    </button>
+                  <button onClick={()=>handleEdit(item)} className='absolute top-4 right-14 cursor-pointer hover:bg-[#cae00780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'>
+                    <img className='w-[24px]' src={editIcon} alt="edit" />
+                  </button>
                   <h3 className="font-bold mb-4 text-white">{item.notes.title}</h3>
                   <p className="text-gray-300">{item.notes.content}</p>
                 </div>

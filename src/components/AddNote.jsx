@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { FaPen, FaStickyNote } from 'react-icons/fa'
-import { LuPin } from 'react-icons/lu'
 import { MdLabelOutline } from 'react-icons/md'
 import pinIcon from '../assets/images/pinIcon.svg'
 import crossIcon from '../assets/images/crossIcon.svg'

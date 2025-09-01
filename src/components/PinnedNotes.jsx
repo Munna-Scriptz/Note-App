@@ -3,6 +3,8 @@ import { RiDeleteBin6Line, RiEdit2Fill } from 'react-icons/ri'
 import { getDatabase, ref, onValue, remove, set, push } from "firebase/database";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateNote } from '../slice/LoginInfoSlice';
+import pinIcon from '../assets/images/pinIcon.svg'
+import regularIcon from '../assets/images/regularNotes.svg'
 
 const PinnedNotes = () => {
     const db = getDatabase();
@@ -35,6 +37,8 @@ const PinnedNotes = () => {
       }
     });
   } , [currentUser.uid])
+  // ---------------------Hide The Pin if pin notes arn't there
+
   // ---------------------Delete Note-----------------
     const handleDel = (Data)=>{
       // ---------Adds notes to RemoveNotes 
@@ -49,8 +53,8 @@ const PinnedNotes = () => {
     }
   return (
     <>
-    <div className="p-6">
-        <h2 className="text-white text-xl font-bold mb-4">📌 Pinned</h2>
+    <div className={`p-6 ${showText == null ? 'hidden' : 'visible' }`}>
+        <h2 className="text-white text-xl font-bold mb-6 flex items-center gap-3"><img className='w-[25px]' src={pinIcon} alt="notes" /> Pinned</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-10">
         {
             noteItem.map((item , i)=>(
@@ -63,6 +67,7 @@ const PinnedNotes = () => {
             ))
         }
         </div>
+        <h2 className="text-white text-xl font-bold flex items-center gap-3"><img className='w-[35px]' src={regularIcon} alt="notes" /> Regular Notes</h2>
     </div>
 
     </>

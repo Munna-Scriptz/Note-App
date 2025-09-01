@@ -14,7 +14,7 @@ const Notes = () => {
   const dispatch = useDispatch()
 
   const handleEdit = (item)=>{
-    dispatch(updateNote(item.notes))
+    dispatch(updateNote({notes: item.notes , updateStatus: true}))
     remove(ref(db , 'AllNotes/' + item.key))
   }
   // ---------------------------------------------Read Notes from firebase 

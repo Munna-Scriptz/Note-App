@@ -15,11 +15,14 @@ const AddNote = () => {
   const [color , setColor] = useState('#2D2E30')
   const currentUser = useSelector(state=>state.MyRedux.value)
   const updateContent = useSelector(state=>state.MyRedux.updated)
-  console.log(updateContent)
+  const [updateCng , setUpdateCng] = useState(false)
+  console.log(updateCng)
+
   useEffect(()=>{
-    setInpValue(updateContent?.title || '')
-    setNoteContent(updateContent?.content || '')
-    setColor(updateContent?.color || '#2D2E30')
+    setUpdateCng(updateContent?.updateStatus || false)
+    setInpValue(updateContent?.notes?.title || '')
+    setNoteContent(updateContent.notes?.content || '')
+    setColor(updateContent?.notes?.color || '#2D2E30')
   }, [updateContent])
   // ---------------Firebase--------------
   const db = getDatabase();
@@ -49,8 +52,8 @@ const AddNote = () => {
         </div>
       </div>
       {
-        updateContent?.title?
-        <button onClick={()=>{handleNotes() , setInpValue('')}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Update Note</button>
+        updateCng == true?
+        <button onClick={()=>{handleNotes() , setInpValue('') , setUpdateCng(false)}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Update Note</button>
         :
         <button onClick={()=>{handleNotes()}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Add Note</button>
       }

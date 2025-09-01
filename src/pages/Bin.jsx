@@ -12,7 +12,6 @@ const Bin = () => {
     // ---------------------Firebase Notes Show
     useEffect(()=>{
         onValue(ref(db , 'removedNotes/'), (snapshot) => {
-            setShowText(snapshot.val())
             const myArray = []
 
             snapshot.forEach((item)=>{
@@ -24,8 +23,14 @@ const Bin = () => {
             })
 
             setDelNotes(myArray)
+
+            if(myArray.length === 0){
+              setShowText(null)
+            }else{
+              setShowText("hasNotes")
+            }
         });
-    } , [])
+    } , [currentUser.uid])
 
     // -------------------Notes single Delete 
     const PermDelete = (item)=>{

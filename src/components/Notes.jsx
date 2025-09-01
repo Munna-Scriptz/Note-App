@@ -20,19 +20,22 @@ const Notes = () => {
   // ---------------------------------------------Read Notes from firebase 
   useEffect(()=>{
     onValue(ref(db , 'AllNotes/'), (snapshot) => {
-      setShowText(snapshot.val())
       const myArray = []
 
       snapshot.forEach((item)=>{
         if(item.val().creatorId == currentUser.uid){
           myArray.push({key: item.key , notes: item.val()})
-        }else{
-          setShowText(item.val())
         }
       })
+
       setNoteItem(myArray)
+      if (myArray.length === 0) {
+        setShowText(null);
+      } else {
+        setShowText("hasNotes");
+      }
     });
-  } , [])
+  } , [currentUser.uid])
   // ---------------------Delete Note-----------------
   const handleDel = (Data)=>{
     // ---------Adds notes to RemoveNotes 

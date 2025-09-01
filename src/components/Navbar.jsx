@@ -3,7 +3,6 @@ import { FaBell, FaMoon, FaSearch, FaSignOutAlt, FaUserCircle } from 'react-icon
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router'
 import { userInfo } from '../slice/LoginInfoSlice'
-import { MdAutoDelete } from 'react-icons/md'
 import Logo from '../assets/images/Logo.png'
 import homeIcon from '../assets/images/homeIcon.svg'
 import binIcon from '../assets/images/binIcon.svg'
@@ -20,14 +19,14 @@ const Navbar = () => {
     }
   return (
     <>
-        <nav className="flex items-center justify-between px-4 py-5 bg-[#2d2e30] shadow-md sticky top-0 z-50">
+        <nav className="flex flex-wrap items-center justify-between px-4 py-5 bg-[#2d2e30] shadow-md sticky top-0 z-50">
         {/* Logo */}
-        <Link to={'/'} className="flex items-center gap-2">
-          <img className='w-[100px]' src={Logo} alt="Logo" />
+        <Link to={'/'} className="flex items-center gap-2 mb-2 sm:mb-0">
+          <img className='w-[80px] sm:w-[100px]' src={Logo} alt="Logo" />
         </Link>
 
         {/* Search Bar */}
-        <div className="flex items-center w-[40%] bg-[#3c3d3f] rounded-full px-4 py-2">
+        <div className="flex items-center w-full sm:w-[40%] bg-[#3c3d3f] rounded-full px-4 py-2 mb-2 sm:mb-0">
           <FaSearch className="text-gray-500 mr-3" />
           <input
             type="text"
@@ -37,7 +36,7 @@ const Navbar = () => {
         </div>
 
         {/* Icons */}
-        <div className="flex items-center gap-5 text-gray-300">
+        <div className="flex flex-wrap items-center gap-5 text-gray-300">
           <div className='flex items-center gap-2 mr-2'>
             <Link className='cursor-pointer hover:bg-[#5AADE0] h-[40px] w-[40px] flex items-center justify-center rounded-full' to={'/'}>
               <img className='w-[30px]' src={homeIcon} alt="Home" />
@@ -47,10 +46,10 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="flex items-center gap-[12px]">
-            <div className="w-10 h-10">
-              <img src={reduxData?.photoURL} alt="pfp" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10">
+              <img src="/userImage.png" alt="pfp" className="rounded-full" />
             </div>
-            <p>{reduxData?.displayName}</p>
+            <p className="text-sm sm:text-base">{reduxData?.displayName}</p>
           </div>
           <FaBell size={20} className="cursor-pointer hover:text-yellow-500" />
           <FaMoon size={20} className="cursor-pointer hover:text-purple-400" />

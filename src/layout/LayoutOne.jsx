@@ -9,7 +9,7 @@ function LayoutOne() {
 
   useEffect(()=>{
     if(reduxData === null){
-      navigate('/Login')
+      navigate('/Register')
     }
   }, [])
   return (

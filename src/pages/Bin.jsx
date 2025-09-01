@@ -72,9 +72,9 @@ const Bin = () => {
     <>
     <div className="p-6">
       {/* ------------------------Header----------------------------*/}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-semibold text-gray-200 flex items-center gap-3"><img className='w-[40px]' src={dustBin} alt="Dustbin" /> Trash</h1>
-        <div className="flex gap-2">
+      <div className="flex flex-wrap justify-between items-center mb-6">
+        <h1 className="text-2xl font-semibold text-gray-200 flex items-center gap-3 mb-4 sm:mb-0"><img className='w-[30px] sm:w-[40px]' src={dustBin} alt="Dustbin" /> Trash</h1>
+        <div className="flex flex-wrap gap-2">
           <button onClick={recoverAllNotes} className="px-4 py-2 rounded-md bg-[#2D2E30] text-gray-200 hover:bg-green-600 transition cursor-pointer">Recover All</button>
           <button onClick={delAll} className="px-4 py-2 rounded-md bg-[#2D2E30] text-gray-200 hover:bg-red-600 transition cursor-pointer">Delete All</button>
         </div>
@@ -85,7 +85,7 @@ const Bin = () => {
           {
             showText == null?
             <div className='flex items-center justify-center h-[450px]'>
-              <h1 className='font-Poppins text-white font-medium text-2xl'>You Don't have any Deleted notes...</h1>
+              <h1 className='font-Poppins text-white font-medium text-2xl text-center'>You Don't have any Deleted notes...</h1>
             </div>
             :
               delNotes.length == 0?
@@ -103,16 +103,16 @@ const Bin = () => {
                       <div key={i} className={`p-5 rounded-lg shadow hover:shadow-lg relative`} style={{ backgroundColor: item.notes.color }} >
                         {/* -----------------Recover And Delete------------------- */}
                         <div className='flex items-center gap-0 absolute top-4 right-4'>
-                          <div onClick={()=>recoverNotes(item)} className='cursor-pointer hover:bg-[#21c21280] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'>
-                            <img className='w-[20px]' src={recoverIcon} alt="delete" />
+                          <div onClick={()=>recoverNotes(item)} className='cursor-pointer hover:bg-[#21c21280] duration-200 w-[35px] sm:w-[40px] h-[35px] sm:h-[40px] rounded-full flex items-center justify-center'>
+                            <img className='w-[16px] sm:w-[20px]' src={recoverIcon} alt="delete" />
                           </div>
-                          <div onClick={()=>PermDelete(item)} className='cursor-pointer hover:bg-[#e0070780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'>
-                            <img className='w-[24px]' src={deleteIcon} alt="delete" />
+                          <div onClick={()=>PermDelete(item)} className='cursor-pointer hover:bg-[#e0070780] duration-200 w-[35px] sm:w-[40px] h-[35px] sm:h-[40px] rounded-full flex items-center justify-center'>
+                            <img className='w-[20px] sm:w-[24px]' src={deleteIcon} alt="delete" />
                           </div>
                         </div>
                         {/* ----------------Notes Title And Content--------------------- */}
-                        <h3 className="font-bold mb-4 text-white">{item.notes.title}</h3>
-                        <p className="text-gray-300">{item.notes.content}</p>
+                        <h3 className="font-bold mb-4 text-white text-sm sm:text-base">{item.notes.title}</h3>
+                        <p className="text-gray-300 text-xs sm:text-sm">{item.notes.content}</p>
                       </div>
                     ))
                   }

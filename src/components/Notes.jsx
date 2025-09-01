@@ -55,7 +55,7 @@ const Notes = () => {
       {
         showText == null?
         <div className='flex items-center justify-center h-[450px]'>
-          <h1 className='font-Poppins text-white font-medium text-2xl'>You Don't have any notes Yet...</h1>
+          <h1 className='font-Poppins text-white font-medium text-2xl text-center'>You Don't have any notes Yet...</h1>
         </div>
         :
           noteItem?.length == 0?
@@ -71,14 +71,14 @@ const Notes = () => {
               {
                 noteItem.map((item , i)=>(
                   <div key={i} className={`p-5 rounded-lg shadow hover:shadow-lg relative`} style={{ backgroundColor: item.notes.color }} >
-                    <button onClick={()=>handleDel(item)} className='absolute top-4 right-4 cursor-pointer hover:bg-[#e0070780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'>
-                      <img className='w-[24px]' src={deleteIcon} alt="delete" />
+                    <button onClick={()=>handleDel(item)} className='absolute top-4 right-4 cursor-pointer hover:bg-[#e0070780] duration-200 w-[35px] sm:w-[40px] h-[35px] sm:h-[40px] rounded-full flex items-center justify-center'>
+                      <img className='w-[20px] sm:w-[24px]' src={deleteIcon} alt="delete" />
                     </button>
-                    <button onClick={()=>handleEdit(item)} className='absolute top-4 right-14 cursor-pointer hover:bg-[#cae00780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'>
-                      <img className='w-[24px]' src={editIcon} alt="edit" />
+                    <button onClick={()=>handleEdit(item)} className='absolute top-4 right-12 sm:right-14 cursor-pointer hover:bg-[#cae00780] duration-200 w-[35px] sm:w-[40px] h-[35px] sm:h-[40px] rounded-full flex items-center justify-center'>
+                      <img className='w-[20px] sm:w-[24px]' src={editIcon} alt="edit" />
                     </button>
-                    <h3 className="font-bold mb-4 text-white">{item.notes.title}</h3>
-                    <p className="text-gray-300">{item.notes.content}</p>
+                    <h3 className="font-bold mb-4 text-white text-sm sm:text-base">{item.notes.title}</h3>
+                    <p className="text-gray-300 text-xs sm:text-sm">{item.notes.content}</p>
                   </div>
                 ))
               }

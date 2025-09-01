@@ -55,24 +55,24 @@ const PinnedNotes = () => {
   return (
     <>
     <div className={`p-6 ${showText == null ? 'hidden' : 'visible' }`}>
-        <h2 className="text-white text-xl font-bold mb-6 flex items-center gap-3"><img className='w-[25px]' src={pinIcon} alt="notes" /> Pinned</h2>
+        <h2 className="text-white text-lg sm:text-xl font-bold mb-6 flex items-center gap-3"><img className='w-[20px] sm:w-[25px]' src={pinIcon} alt="notes" /> Pinned</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-10">
         {
             noteItem.map((item , i)=>(
                 <div key={i} className={`p-5 rounded-lg shadow hover:shadow-lg relative`} style={{ backgroundColor: item.notes.color }} >
-                    <button onClick={()=>handleDel(item)} className='absolute top-4 right-4 cursor-pointer hover:bg-[#e0070780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'>
-                        <img className='w-[24px]' src={deleteIcon} alt="delete" />
+                    <button onClick={()=>handleDel(item)} className='absolute top-4 right-4 cursor-pointer hover:bg-[#e0070780] duration-200 w-[35px] sm:w-[40px] h-[35px] sm:h-[40px] rounded-full flex items-center justify-center'>
+                        <img className='w-[20px] sm:w-[24px]' src={deleteIcon} alt="delete" />
                     </button>
-                  <button onClick={()=>handleEdit(item)} className='absolute top-4 right-14 cursor-pointer hover:bg-[#cae00780] duration-200 w-[40px] h-[40px] rounded-full flex items-center justify-center'>
-                    <img className='w-[24px]' src={editIcon} alt="edit" />
+                  <button onClick={()=>handleEdit(item)} className='absolute top-4 right-12 sm:right-14 cursor-pointer hover:bg-[#cae00780] duration-200 w-[35px] sm:w-[40px] h-[35px] sm:h-[40px] rounded-full flex items-center justify-center'>
+                    <img className='w-[20px] sm:w-[24px]' src={editIcon} alt="edit" />
                   </button>
-                  <h3 className="font-bold mb-4 text-white">{item.notes.title}</h3>
-                  <p className="text-gray-300">{item.notes.content}</p>
+                  <h3 className="font-bold mb-4 text-white text-sm sm:text-base">{item.notes.title}</h3>
+                  <p className="text-gray-300 text-xs sm:text-sm">{item.notes.content}</p>
                 </div>
             ))
         }
         </div>
-        <h2 className="text-white text-xl font-bold flex items-center gap-3"><img className='w-[35px]' src={regularIcon} alt="notes" /> Regular Notes</h2>
+        <h2 className="text-white text-lg sm:text-xl font-bold flex items-center gap-3"><img className='w-[30px] sm:w-[35px]' src={regularIcon} alt="notes" /> Regular Notes</h2>
     </div>
 
     </>

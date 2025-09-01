@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router'
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import { Bounce, toast } from 'react-toastify';
 import { HashLoader } from 'react-spinners';
-import ProfileImage from '../assets/images/userImage.png'
+
 const Register = () => {
     const [formData , setFormData] = useState({
         username: '',
@@ -59,7 +59,7 @@ const Register = () => {
                 transition: Bounce,
             });
             // -----------Username & profile 
-            updateProfile(auth.currentUser, {displayName: formData.username, photoURL: ProfileImage})
+            updateProfile(auth.currentUser, {displayName: formData.username, photoURL: '/userImage.png'})
             .then(() => {
                 // ---------OTP verification 
                 sendEmailVerification(auth.currentUser)

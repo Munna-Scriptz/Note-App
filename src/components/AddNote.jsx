@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { FaPen, FaStickyNote } from 'react-icons/fa'
 import { LuPin } from 'react-icons/lu'
 import { MdLabelOutline } from 'react-icons/md'
-
+import pinIcon from '../assets/images/pinIcon.svg'
+import crossIcon from '../assets/images/crossIcon.svg'
 // ---------Firebase Import-------- 
 import { getDatabase, push, ref, set } from "firebase/database";
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,6 +44,7 @@ const AddNote = () => {
   }
   // ---------------Notes pin--------------
   const handlePin = ()=>{
+    setIsPin(true)
     dispatch(pinNote('pinnedNotes/'))
   }
   return (
@@ -60,9 +62,9 @@ const AddNote = () => {
       </div>
       {
         updateCng == true?
-        <button onClick={()=>{handleNotes() , setInpValue('') , setUpdateCng(false) , dispatch(pinNote('AllNotes/'))}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Update Note</button>
+        <button onClick={()=>{handleNotes() , setInpValue('') , setUpdateCng(false) , dispatch(pinNote('AllNotes/')), setIsPin(false)}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Update Note</button>
         :
-        <button onClick={()=>{handleNotes() , dispatch(pinNote('AllNotes/'))}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Add Note</button>
+        <button onClick={()=>{handleNotes() , dispatch(pinNote('AllNotes/')), setIsPin(false)}} className="bg-white h-[40px] w-[140px] cursor-pointer text-[#202124] font-medium rounded-lg">Add Note</button>
       }
     </div>
 
@@ -79,7 +81,17 @@ const AddNote = () => {
         </div>
       </div>
       <div className='flex items-center gap-2 text-white'>
-        <button onClick={handlePin} className='cursor-pointer hover:bg-[#3ba1fa9f] duration-200 w-[35px] h-[35px] flex items-center justify-center rounded-full'><LuPin size={22}/></button>
+        {
+          isPin?
+          <button onClick={()=>{handlePin() , setIsPin(false), dispatch(pinNote('AllNotes//'))}} className='cursor-pointer hover:bg-[#3ba1fa9f] duration-200 w-[35px] h-[35px] flex items-center justify-center rounded-full'>
+            <img className='w-[20px]' src={crossIcon} alt="pin" />
+          </button>
+          :
+          <button onClick={()=>handlePin()} className='cursor-pointer hover:bg-[#3ba1fa9f] duration-200 w-[35px] h-[35px] flex items-center justify-center rounded-full'>
+            <img className='w-[22px]' src={pinIcon} alt="pin" />
+          </button>
+
+        }
         <button className='cursor-pointer hover:bg-[#ea5b6e8c] duration-200 w-[35px] h-[35px] flex items-center justify-center rounded-full'><MdLabelOutline size={24}/></button>
       </div>
     </div>

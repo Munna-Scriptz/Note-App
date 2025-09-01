@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { RiDeleteBin6Line, RiEdit2Fill } from 'react-icons/ri'
 import { getDatabase, ref, onValue, remove, set, push } from "firebase/database";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateNote } from '../slice/LoginInfoSlice';
@@ -26,7 +25,7 @@ const PinnedNotes = () => {
       const myArray = []
 
       snapshot.forEach((item)=>{
-        if(item.val().creatorId == currentUser.uid){
+        if(item.val().creatorId == currentUser?.uid){
           myArray.push({key: item.key , notes: item.val()})
         }
       })
@@ -38,7 +37,7 @@ const PinnedNotes = () => {
         setShowText("hasNotes");
       }
     });
-  } , [currentUser.uid])
+  } , [currentUser?.uid])
   // ---------------------Hide The Pin if pin notes arn't there
 
   // ---------------------Delete Note-----------------
@@ -48,7 +47,7 @@ const PinnedNotes = () => {
         title: Data.notes.title,
         content: Data.notes.content,
         color: Data.notes.color,
-        creatorId : currentUser.uid
+        creatorId : currentUser?.uid
       });
       // ---------Delete Notes from home
       remove(ref(db , 'pinnedNotes/' + Data.key))

@@ -24,7 +24,7 @@ const Notes = () => {
       const myArray = []
 
       snapshot.forEach((item)=>{
-        if(item.val().creatorId == currentUser.uid){
+        if(item.val().creatorId == currentUser?.uid){
           myArray.push({key: item.key , notes: item.val()})
         }
       })
@@ -36,7 +36,7 @@ const Notes = () => {
         setShowText("hasNotes");
       }
     });
-  } , [currentUser.uid])
+  } , [currentUser?.uid])
   // ---------------------Delete Note-----------------
   const handleDel = (Data)=>{
     // ---------Adds notes to RemoveNotes 
@@ -44,7 +44,7 @@ const Notes = () => {
       title: Data.notes.title,
       content: Data.notes.content,
       color: Data.notes.color,
-      creatorId : currentUser.uid
+      creatorId : currentUser?.uid
     });
     // ---------Delete Notes from home
     remove(ref(db , 'AllNotes/' + Data.key))
@@ -58,7 +58,7 @@ const Notes = () => {
           <h1 className='font-Poppins text-white font-medium text-2xl'>You Don't have any notes Yet...</h1>
         </div>
         :
-          noteItem.length == 0?
+          noteItem?.length == 0?
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-6'>
               <div className="skeleton-loader"></div>
               <div className="skeleton-loader"></div>

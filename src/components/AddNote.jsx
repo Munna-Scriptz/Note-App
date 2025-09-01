@@ -21,7 +21,6 @@ const AddNote = () => {
   const dispatch = useDispatch()
   const pinOrNot = useSelector(state=>state.MyRedux.pinned)
   const [isPin , setIsPin] = useState(false)
-  console.log(isPin)
   // -------------------Update button------------------
   useEffect(()=>{
     setUpdateCng(updateContent?.updateStatus || false)
@@ -36,7 +35,7 @@ const AddNote = () => {
       title: inpValue,
       content: noteContent,
       color: color,
-      creatorId : currentUser.uid
+      creatorId : currentUser?.uid
     });
     setInpValue('')
     setNoteContent('')

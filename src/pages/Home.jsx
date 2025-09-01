@@ -7,7 +7,7 @@ import PinnedNotes from "../components/PinnedNotes";
 
 const Home = () => {
   return (
-    <div className="min-h-screen transition-colors pt-6">
+    <div className="transition-colors pt-6">
       {/*------------- Add Note Input --------------------*/}
       <AddNote/>
 

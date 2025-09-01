@@ -18,7 +18,7 @@ const Bin = () => {
             const myArray = []
 
             snapshot.forEach((item)=>{
-              if(item.val().creatorId == currentUser.uid){
+              if(item.val().creatorId == currentUser?.uid){
                 myArray.push({key: item.key , notes: item.val()})
               }else{
                 setShowText(item.val())
@@ -33,7 +33,7 @@ const Bin = () => {
               setShowText("hasNotes")
             }
         });
-    } , [currentUser.uid])
+    } , [currentUser?.uid])
 
     // -------------------Notes single Delete 
     const PermDelete = (item)=>{
@@ -51,7 +51,7 @@ const Bin = () => {
         title: item.notes.title,
         content: item.notes.content,
         color: item.notes.color,
-        creatorId : currentUser.uid
+        creatorId : currentUser?.uid
       });
       remove(ref(db , 'removedNotes/' + item.key))
     }
@@ -62,7 +62,7 @@ const Bin = () => {
           title: item.notes.title,
           content: item.notes.content,
           color: item.notes.color,
-          creatorId : currentUser.uid
+          creatorId : currentUser?.uid
         });
         remove(ref(db , 'removedNotes/' + item.key))
       })

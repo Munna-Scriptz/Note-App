@@ -4,7 +4,9 @@ body{
   background-color: #202124;
   color: white;
 }
-
+body::-webkit-scrollbar {
+  display: none;
+}
 #LoaderBG{
   backdrop-filter: blur(10px);
 }

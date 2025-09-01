@@ -17,7 +17,7 @@ const Notes = () => {
     dispatch(updateNote({notes: item.notes , updateStatus: true}))
     remove(ref(db , 'AllNotes/' + item.key))
   }
-  // ---------------------------------------------Read Notes from firebase 
+  // -------------------------------------------Read Notes from firebase 
   useEffect(()=>{
     onValue(ref(db , 'AllNotes/'), (snapshot) => {
       const myArray = []

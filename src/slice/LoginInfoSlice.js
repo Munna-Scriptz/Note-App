@@ -5,6 +5,7 @@ export const LoginInfoSlice = createSlice({
   initialState: {
     value: JSON.parse(localStorage.getItem('userInfo')) || null,
     updated: {} ,
+    pinned : 'AllNotes/',
   },
   reducers: {
     userInfo: (state, action) => {
@@ -13,10 +14,13 @@ export const LoginInfoSlice = createSlice({
     updateNote: (state, action) => {
       state.updated = action.payload
     },
+    pinNote: (state, action) => {
+      state.pinned = action.payload
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { userInfo , updateNote } = LoginInfoSlice.actions
+export const { userInfo , updateNote , pinNote } = LoginInfoSlice.actions
 
 export default LoginInfoSlice.reducer

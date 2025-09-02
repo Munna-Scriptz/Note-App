@@ -19,7 +19,7 @@ const Navbar = () => {
     }
   return (
     <>
-        <nav className="lg:flex hidden flex-wrap items-center justify-between px-4 py-5 bg-[#2d2e30] shadow-md sticky top-0 z-50">
+      <nav className="lg:flex hidden flex-wrap items-center justify-between px-4 py-5 bg-[#2d2e30] shadow-md sticky top-0 z-50">
         {/* Logo */}
         <Link to={'/'} className="flex items-center gap-2 mb-2 sm:mb-0">
           <img className='w-[80px] sm:w-[100px]' src={Logo} alt="Logo" />

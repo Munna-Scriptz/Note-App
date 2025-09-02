@@ -54,8 +54,8 @@ const Notes = () => {
     <div>
       {
         showText == null?
-        <div className='flex items-center justify-center h-[450px]'>
-          <h1 className='font-Poppins text-white font-medium text-2xl text-center'>You Don't have any notes Yet...</h1>
+        <div className='flex items-center justify-center lg:h-[450px] h-[350px]'>
+          <h1 className='font-Poppins text-white font-medium md:text-2xl text-xl text-center'>You Don't have any notes Yet...</h1>
         </div>
         :
           noteItem?.length == 0?

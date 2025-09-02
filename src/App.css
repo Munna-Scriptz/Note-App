@@ -6,6 +6,10 @@ body{
 }
 body::-webkit-scrollbar {
   display: none;
+  scrollbar-width: none;
+}
+* {
+  scrollbar-width: none !important;
 }
 #LoaderBG{
   backdrop-filter: blur(10px);

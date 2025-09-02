@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router'
 import Navbar from '../components/Navbar'
 import { useSelector } from 'react-redux'
-import ResNavbar from '../components/Resnavbar'
+import ResNav from '../components/ResNav'
 
 function LayoutOne() {
   const reduxData = useSelector((state)=>state.MyRedux.value)
@@ -16,7 +16,7 @@ function LayoutOne() {
   return (
     <>
       <Navbar/>
-      <ResNavbar/>
+      <ResNav/>
       <Outlet/>
     </>
   )

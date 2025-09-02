@@ -62,7 +62,39 @@ const ResNav = () => {
             
             {/* your menu content here */}
             <div>
-                
+                <div className="flex flex-wrap flex-col gap-9 text-gray-300 mt-15">
+                    <Link onClick={()=>setMenu(!menu)} className='cursor-pointer flex items-center gap-4 text-lg' to={'/'}>
+                        <img className='w-[30px]' src={homeIcon} alt="Home" />
+                        Home
+                    </Link>
+                    <Link onClick={()=>setMenu(!menu)} className='cursor-pointer flex items-center gap-4 text-lg' to={'/bin'}>
+                        <img className='w-[30px]' src={binIcon} alt="Bin" />
+                        Trash
+                    </Link>
+                    <Link onClick={()=>setMenu(!menu)} className='cursor-pointer flex items-center gap-4 text-lg' to={'/bin'}>
+                        <FaBell size={25} className="cursor-pointer hover:text-yellow-500" />
+                        Notification
+                    </Link>
+                    <Link onClick={()=>setMenu(!menu)} className='cursor-pointer flex items-center gap-4 text-lg' to={'/bin'}>
+                      <FaMoon size={25} className="cursor-pointer hover:text-purple-400" />
+                      Theme
+                    </Link>
+                    <Link onClick={()=>setMenu(!menu)} className='cursor-pointer flex items-center gap-4 text-lg' to={'/bin'}>
+                      <FaUserCircle size={27} className="cursor-pointer hover:text-blue-400" />
+                      Profile
+                    </Link>
+                </div>
+            </div>
+            <div className="flex items-center justify-between w-[90%] absolute bottom-6 left-[16px] right-[16px]">
+                <div className='flex items-center gap-3'>
+                    <div className="w-[50px] h-[50px]">
+                    <img src="/userImage.png" alt="pfp" className="rounded-full" />
+                    </div>
+                    <p className="text-xl">{reduxData?.displayName}</p>
+                </div>
+                <div>
+                    <Link className='flex items-center gap-3 font-medium hover:text-red-600 duration-[.3s]' onClick={handleData} to={'/Login'}>Log Out<FaSignOutAlt size={20} className="cursor-pointer hover:text-red-500" /></Link>
+                </div>
             </div>
         </section>
     </div>

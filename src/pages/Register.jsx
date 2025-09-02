@@ -103,17 +103,17 @@ const Register = () => {
     }
   return (
     <>
-        <div className="min-h-screen flex items-center justify-center bg-[#0d0d0d] relative">
+        <div className="min-h-screen flex flex-wrap items-center justify-center bg-[#0d0d0d] relative px-[16px]">
         {/* Blurry back effect */}
         {/* ------------loader----------- */}
         <div id='LoaderBG' className={`${loader? 'visible' : 'hidden'} w-full h-screen bg-[#00000080] absolute top-0 left-0 z-999 flex items-center justify-center`}>
             <HashLoader size={70} color='#F564A9'/>
         </div>
-        <div className="absolute w-[400px] h-[400px] bg-purple-500/20 rounded-full blur-3xl top-10 left-10 animate-pulse"></div>
-        <div className="absolute w-[300px] h-[300px] bg-pink-500/20 rounded-full blur-3xl bottom-10 right-10 animate-pulse"></div>
+        <div className="absolute w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-purple-500/20 rounded-full blur-3xl top-10 left-10 animate-pulse"></div>
+        <div className="absolute w-[200px] sm:w-[300px] h-[200px] sm:h-[300px] bg-pink-500/20 rounded-full blur-3xl bottom-10 right-10 animate-pulse"></div>
 
         {/*-------------- Form Box------------------- */}
-        <div className="w-full max-w-lg p-8 rounded-xl bg-[#1a1a1a]/90 border border-gray-800 shadow-xl backdrop-blur-md relative z-10">
+        <div className="w-full max-w-sm sm:max-w-lg p-6 sm:p-8 rounded-xl bg-[#1a1a1a]/90 border border-gray-800 shadow-xl backdrop-blur-md relative z-10">
             <h2 className="text-3xl font-bold text-white text-center mb-6">
             Create Account
             </h2>

@@ -7,19 +7,18 @@ import Logo from '../assets/images/Logo.png'
 import homeIcon from '../assets/images/homeIcon.svg'
 import binIcon from '../assets/images/binIcon.svg'
 
-
-const Navbar = () => {
+const ResNavbar = () => {
     // --------Redux Data----------
-    const reduxData = useSelector((state)=>state.MyRedux.value)
-    const dispatch = useDispatch()
-
-    const handleData = () =>{
-      dispatch(userInfo(null))
-      localStorage.removeItem('userInfo')
-    }
+        const reduxData = useSelector((state)=>state.MyRedux.value)
+        const dispatch = useDispatch()
+    
+        const handleData = () =>{
+          dispatch(userInfo(null))
+          localStorage.removeItem('userInfo')
+        }
   return (
     <>
-        <nav className="lg:flex hidden flex-wrap items-center justify-between px-4 py-5 bg-[#2d2e30] shadow-md sticky top-0 z-50">
+    <nav className="lg:hidden flex flex-wrap items-center justify-between px-4 py-5 bg-[#2d2e30] shadow-md sticky top-0 z-50">
         {/* Logo */}
         <Link to={'/'} className="flex items-center gap-2 mb-2 sm:mb-0">
           <img className='w-[80px] sm:w-[100px]' src={Logo} alt="Logo" />
@@ -56,9 +55,9 @@ const Navbar = () => {
           <FaUserCircle size={26} className="cursor-pointer hover:text-blue-400" />
           <Link onClick={handleData} to={'/Login'}><FaSignOutAlt size={20} className="cursor-pointer hover:text-red-500" /></Link>
         </div>
-      </nav>
+    </nav>
     </>
   )
 }
 
-export default Navbar
+export default ResNavbar

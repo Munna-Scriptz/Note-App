@@ -6,6 +6,7 @@ import { MdLoop } from 'react-icons/md';
 import deleteIcon from '../assets/images/deleteIcon.svg'
 import recoverIcon from '../assets/images/recoverIcon.svg'
 import dustBin from '../assets/images/dustbinIcon.svg'
+import noNotes from '../assets/images/noNotes.svg'
 
 const Bin = () => {
     const db = getDatabase();
@@ -84,7 +85,8 @@ const Bin = () => {
     <div>
           {
             showText == null?
-            <div className='flex items-center justify-center lg:h-[450px] h-[350px]'>
+            <div className='flex flex-col items-center justify-center lg:h-[450px] h-[350px]'>
+              <img src={noNotes} alt="Not founded" />
               <h1 className='font-Poppins text-white font-medium md:text-2xl text-lg text-center'>You Don't have any Deleted notes...</h1>
             </div>
             :

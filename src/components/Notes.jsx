@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateNote } from '../slice/LoginInfoSlice';
 import deleteIcon from '../assets/images/deleteIcon.svg'
 import editIcon from '../assets/images/editIcon.svg'
+import noNotes from '../assets/images/noNotes.svg'
 
 const Notes = () => {
   const db = getDatabase();
@@ -54,7 +55,8 @@ const Notes = () => {
     <div>
       {
         showText == null?
-        <div className='flex items-center justify-center lg:h-[450px] h-[350px]'>
+        <div className='flex flex-col items-center justify-center lg:h-[450px] h-[350px]'>
+          <img src={noNotes} alt="Not found" />
           <h1 className='font-Poppins text-white font-medium md:text-2xl text-xl text-center'>You Don't have any notes Yet...</h1>
         </div>
         :
